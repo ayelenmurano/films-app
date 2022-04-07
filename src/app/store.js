@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+
+import { moviesApi } from '../redux/api/movies';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    [moviesApi.reducerPath]: moviesApi.reducer,
   },
+  // Controla los middleware y catching
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(moviesApi.middleware),
 });
